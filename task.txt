@@ -1,0 +1,5 @@
+1) install library -> bootstrap and axios
+2) create component
+3) create form
+4) create table
+5) add table
