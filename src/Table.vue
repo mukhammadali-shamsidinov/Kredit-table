@@ -51,36 +51,37 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in tableData" :key="index" contenteditable="false">
+        <tr v-for="(item, index) in tableData" :key="index">
           <td>{{ index + 1 }}</td>
           <td style="width: 200px;">{{ item.funding_date }}</td>
          <td>
-          <input type="text" class="form-control"  @input="updateValue(index, 'name')">
+          <input      @keypress="handleKeyDown(index, $event)" ref="inputs"  type="text" class="form-control" v-model="item.currency_type"  @input="updateValue(item.funding_date,index, $event.target.value,item.id)">
          </td>
          <td>
-          <input type="text" class="form-control" @input="sourceAmount.maxalliy=$event.target.value">
+          <input @keypress="handleKeyDown(index, $event)" ref="inputs" type="text" class="form-control" v-model="item.currency_amount" @input="updateValue(item.funding_date,index, $event.target.value)">
          </td>
          <td>
-          <input type="text" class="form-control" @input="sourceAmount.davlat=$event.target.value">
+          <input @keypress="handleKeyDown(index, $event)" ref="inputs" type="text" class="form-control" v-model="item.num" @input="updateValue(item.funding_date,index, $event.target.value)">
          </td>
          <td>
-          <input type="text" class="form-control" @input="sourceAmount=$event.target.value">
+          <input @keypress="handleKeyDown(index, $event)" ref="inputs" type="text" class="form-control" v-model="item.num" @input="updateValue(item.funding_date,index, $event.target.value)">
          </td>
          <td>
-          <input type="text" class="form-control" @input="sourceAmount=$event.target.value">
+          <input @keypress="handleKeyDown(index, $event)" ref="inputs" type="text" class="form-control" v-model="item.num" @input="updateValue(item.funding_date,index, $event.target.value)">
          </td>
          <td>
-          <input type="text" class="form-control" @input="sourceAmount=$event.target.value">
+          <input @keydown="handleKeyDown(index, $event)" ref="inputs" type="text" class="form-control" v-model="item.num" @input="updateValue(item.funding_date,index, $event.target.value)">
          </td>
          <td>
-          <input type="text" class="form-control" @input="sourceAmount=$event.target.value">
+          <input @keydown="handleKeyDown(index, $event)" ref="inputs" type="text" class="form-control" v-model="item.num" @input="updateValue(item.funding_date,index, $event.target.value)">
          </td>
          <td>
-          <input type="text" class="form-control" disabled :value="all.allSom">
+          <input type="text" class="form-control"  disabled :value="item.currency_type">
          </td>
          <td>
-          <input type="text" class="form-control" disabled :value="all.allDoll">
+          <input type="text" class="form-control" disabled :value="item.currency_amount">
          </td>
+         
       
           <!-- Add more columns as needed -->
         </tr>
@@ -98,12 +99,7 @@ export default {
       tableBank:[],
       bank:'',
       abroadBank:[],
-      sourceAmount:{
-        xorij:'',
-        davlat:'',
-        maxalliy:''
-
-      },
+      listCurrent:[],
       all:{
         allSom:0,
         allDoll:0
@@ -132,10 +128,37 @@ export default {
   }
   ,
   methods:{
-    updateValue(index, key) {
+    updateValue(funding_date,index, key,id) {
       // Handle input changes and update the corresponding value in the data
       console.log(`Updating ${key} for person at index ${index}`);
-    
+     
+     
+    },
+    handleKeyDown(index, event) {
+      const inputs = this.$refs.inputs;
+
+      switch (event.key) {
+        case 'ArrowRight':
+          if (index < inputs.length - 1) {
+            // Saqlangan inputlardan biri ustiga o'tsa, keyingi inputni fokusga olish
+            inputs[index + 1].focus();
+          }
+          break;
+        case 'ArrowLeft':
+          if (index > 0) {
+            // Saqlangan inputlardan biri pastga o'tsa, oldingi inputni fokusga olish
+            inputs[index - 1].focus();
+          }
+          break;
+        case 'ArrowUp':
+          // Yuqori inputa fokus qilish
+          break;
+        case 'ArrowDown':
+          // Pastki inputa fokus qilish
+          break;
+        default:
+          break;
+      }
     },
     selectBank(){
       console.log(this.bank);
@@ -148,6 +171,9 @@ export default {
     addSource(){
       console.log(this.sourceAmount.xorij);
       
+    },
+    allSum(i){
+      console.log(i);
     }
   }
 };

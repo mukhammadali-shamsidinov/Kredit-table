@@ -31,7 +31,6 @@
 </template>
 <script>
 import axios from 'axios'
-import {v4} from 'uuid'
 export default {
     methods:{
         handleSubmit(e){
@@ -60,7 +59,11 @@ export default {
     // Add the formatted month and year to the result array
     result.push(
         {   id:i*12,
-            funding_date:`${year}-${month}-${day}`
+            funding_date:`${year}-${month}-${day}`,
+            currency_type:null,
+            currency_amount:null,
+            num:null
+
         }
     );
 
@@ -103,7 +106,7 @@ console.log(dateRange);
 	background: rgba(248, 206, 236, 0.4);
 	border-color: rgba(248, 206, 236, 1);
 }
-.datepicker--cell.-current-{}
+
 .datepicker--cell.-selected-,.datepicker--cell.-selected-.-focus-{
 	background-color: #f8ceec;
 	color: #000000;

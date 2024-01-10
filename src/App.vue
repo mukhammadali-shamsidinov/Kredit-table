@@ -1,11 +1,10 @@
 <script >
 import Form from './components/Form.vue';
 import Table from './Table.vue';
-import Calc from './components/Calc.vue';
 export default {
   components:{
     Form,
-    Table,Calc
+    Table
   }
 }
 </script>
@@ -17,7 +16,6 @@ export default {
   
         <Form />
         <Table />
-        <!-- <Calc /> -->
     </div>
    </div>
   </header>
